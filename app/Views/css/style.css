@@ -320,7 +320,7 @@ tr:hover {
 
 .login-credentials table {
     font-size: 12px;
-    margin-top: 12px;
+    margin: 12px auto 0;
 }
 
 .login-credentials th {
