@@ -294,6 +294,40 @@ tr:hover {
     text-decoration: none;
 }
 
+.login-credentials {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.login-credentials h3 {
+    text-align: center;
+    color: #888;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+}
+
+.login-credentials table {
+    font-size: 12px;
+}
+
+.login-credentials th {
+    background: transparent;
+    color: #999;
+    font-weight: 500;
+    padding: 4px 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.login-credentials td {
+    padding: 4px 8px;
+    color: #777;
+    font-family: monospace;
+}
+
 .admin-tabs {
     display: flex;
     gap: 0;

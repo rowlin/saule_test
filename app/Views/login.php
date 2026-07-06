@@ -19,6 +19,16 @@
 
         </form>
         <div class="alert alert-error" id="loginAlert" style="display:none"></div>
+        <div class="login-credentials">
+            <h3>Test Credentials</h3>
+            <table>
+                <tr><th>Login</th><th>Password</th><th>Role</th></tr>
+                <tr><td>admin</td><td>password</td><td>Admin</td></tr>
+                <tr><td>john_doe</td><td>password</td><td>User</td></tr>
+                <tr><td>jane_smith</td><td>password</td><td>User</td></tr>
+                <tr><td>bob_wilson</td><td>password</td><td>User</td></tr>
+            </table>
+        </div>
     </div>
 </div>
 
