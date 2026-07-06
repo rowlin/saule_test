@@ -1,0 +1,20 @@
+{
+    "name": "saule/betting-system",
+    "description": "Sports betting system",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Core\\": "Core/",
+            "Controllers\\": "Controllers/",
+            "Models\\": "Models/",
+            "Services\\": "Services/",
+            "Dto\\": "Dto/",
+            "Exceptions\\": "Exceptions/",
+            "Helpers\\": "Helpers/",
+            "Validation\\": "Validation/"
+        }
+    },
+    "require": {
+        "php": ">=8.0"
+    }
+}

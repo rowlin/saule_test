@@ -1,0 +1,40 @@
+services:
+    web:
+        image: nginx:latest
+        ports:
+            - "80:80"
+        volumes:
+            - ./app:/var/www/html
+            - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+        links:
+            - php-fpm
+
+    php-fpm:
+        build: docker/php-fpm
+        volumes:
+            - ./app:/var/www/html
+    
+    database:
+      build: docker/mysql
+      ports:
+      - 3306:3306
+      environment:
+        MYSQL_HOST: database
+        MYSQL_USER: user
+        MYSQL_PASSWORD: password
+        MYSQL_DATABASE: saule_betting
+        MYSQL_ROOT_PASSWORD: secret
+      volumes:
+        - ./mysql_data:/var/lib/mysql 
+        - ./sql/:/docker-entrypoint-initdb.d/
+      
+    phpmyadmin:
+      image: phpmyadmin/phpmyadmin:latest
+      restart: always
+      depends_on:
+        - database
+      environment:
+        PMA_HOST: database
+        MYSQL_ROOT_PASSWORD: secret
+      ports:
+        - "8080:80"
