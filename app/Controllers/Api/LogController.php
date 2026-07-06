@@ -7,24 +7,17 @@ use Models\BalanceLog;
 
 class LogController extends Controller
 {
-    public function logs(): void
+    private int $userId;
+
+    public function __construct()
     {
-        $userId = $this->requireAuth();
-        $logModel = new BalanceLog();
-        $this->jsonResponse($logModel->findByUser($userId));
+        parent::__construct();
+        $this->userId = $this->requireAuth();
     }
 
-    public function adminLogs(): void
+    public function logs(): void
     {
-        $this->requireAdmin();
-
         $logModel = new BalanceLog();
-        $userId = (int) ($_GET['user_id'] ?? 0);
-
-        if ($userId) {
-            $this->jsonResponse($logModel->findByUser($userId));
-        } else {
-            $this->jsonResponse($logModel->findAll());
-        }
+        $this->jsonResponse($logModel->findByUser($this->userId));
     }
 }

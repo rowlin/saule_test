@@ -8,19 +8,24 @@ use Services\BalanceService;
 
 class BalanceController extends Controller
 {
+    private int $userId;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->userId = $this->requireAuth();
+    }
+
     public function show(): void
     {
-        $userId = $this->requireAuth();
-
         $service = $this->container->get(BalanceService::class);
-        $this->jsonResponse($service->getUserBalance($userId));
+        $this->jsonResponse($service->getUserBalance($this->userId));
     }
 
     public function changeCurrency(ChangeCurrencyDto $dto): void
     {
-        $userId = $this->requireAuth();
         $this->validateOrError($dto);
         $service = $this->container->get(BalanceService::class);
-        $this->jsonResult($service->changeCurrency($userId, $dto->currency));
+        $this->jsonResult($service->changeCurrency($this->userId, $dto->currency));
     }
 }

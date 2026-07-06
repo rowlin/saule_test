@@ -4,13 +4,20 @@ namespace Controllers\Api;
 
 use Core\Controller;
 use Dto\PlaceBetDto;
-use Dto\SettleBetDto;
 use Models\Bet;
 use Services\BetService;
 use Services\EventService;
 
 class BetController extends Controller
 {
+    private int $userId;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->userId = $this->requireAuth();
+    }
+
     public function events(): void
     {
         $service = new EventService();
@@ -19,35 +26,14 @@ class BetController extends Controller
 
     public function myBets(): void
     {
-        $userId = $this->requireAuth();
         $betModel = new Bet();
-        $this->jsonResponse($betModel->findByUser($userId));
-    }
-
-    public function bets(): void
-    {
-        $this->requireAdmin();
-
-        $betModel = new Bet();
-        $this->jsonResponse($betModel->findAllWithUsers());
+        $this->jsonResponse($betModel->findByUser($this->userId));
     }
 
     public function placeBet(PlaceBetDto $dto): void
     {
-        $userId = $this->requireAuth();
         $this->validateOrError($dto);
         $betService = $this->container->get(BetService::class);
-        $this->jsonResult($betService->placeBet($userId, $dto->eventName, $dto->outcome, $dto->odds, $dto->amount), 201);
-    }
-
-    public function settleBet(SettleBetDto $dto): void
-    {
-        $this->requireAdmin();
-
-        $this->validateOrError($dto);
-
-        $adminId = $this->auth->getUserId();
-        $betService = $this->container->get(BetService::class);
-        $this->jsonResult($betService->settleBet($dto->betId, $dto->result, $adminId));
+        $this->jsonResult($betService->placeBet($this->userId, $dto->eventName, $dto->outcome, (float) $dto->odds, (float) $dto->amount), 201);
     }
 }
