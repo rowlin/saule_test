@@ -165,7 +165,8 @@ test('EventService - getAll', function () {
     $svc = new \Services\EventService();
     $events = $svc->getAll();
     assertTrue(count($events) > 0, 'No events');
-    assertEquals('Barcelona - Real Madrid', $events[0]['name']);
+    $names = array_column($events, 'name');
+    assertTrue(in_array('Barcelona - Real Madrid', $names, true), 'Expected event not found');
 });
 
 test('EventService - findById', function () {

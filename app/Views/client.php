@@ -218,7 +218,7 @@ function loadEvents() {
                 '<th>Match</th><th>1</th><th>X</th><th>2</th><th>Bet</th>' +
                 '</tr></thead><tbody>';
             events.forEach(function(e) {
-                var myBet = betMap[e.name];
+                    var myBet = betMap[e.name];
                 if (myBet && myBet.status !== 'pending') return;
 
                 var betCell;
@@ -230,14 +230,17 @@ function loadEvents() {
                 } else {
                     betCell = '<button class="btn btn-sm btn-primary" onclick="showInlineBet(' + e.id + ',\'' + e.name.replace(/'/g, "\\'") + '\',' + e.team1_win + ',' + e.draw + ',' + e.team2_win + ')">Bet</button>';
                 }
+                var t1 = parseFloat(e.team1_win);
+                var dr = parseFloat(e.draw);
+                var t2 = parseFloat(e.team2_win);
                 var team1Class = (myBet && myBet.outcome === 'team1_win') ? ' class="chosen-outcome"' : '';
                 var drawClass = (myBet && myBet.outcome === 'draw') ? ' class="chosen-outcome"' : '';
                 var team2Class = (myBet && myBet.outcome === 'team2_win') ? ' class="chosen-outcome"' : '';
                 html += '<tr id="eventRow-' + e.id + '">' +
                     '<td>' + e.name + '</td>' +
-                    '<td' + team1Class + '>' + e.team1_win.toFixed(2) + '</td>' +
-                    '<td' + drawClass + '>' + e.draw.toFixed(2) + '</td>' +
-                    '<td' + team2Class + '>' + e.team2_win.toFixed(2) + '</td>' +
+                    '<td' + team1Class + '>' + t1.toFixed(2) + '</td>' +
+                    '<td' + drawClass + '>' + dr.toFixed(2) + '</td>' +
+                    '<td' + team2Class + '>' + t2.toFixed(2) + '</td>' +
                     '<td>' + betCell + '</td>' +
                     '</tr>';
             });
