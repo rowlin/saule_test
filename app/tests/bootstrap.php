@@ -13,8 +13,12 @@ spl_autoload_register(function ($class) {
 try {
     $config = require __DIR__ . '/../config.php';
     $db = $config['db'];
+    $driver = $db['driver'] ?? 'mysql';
+    $dsn = $driver === 'pgsql'
+        ? "pgsql:host={$db['host']};dbname={$db['name']}"
+        : "mysql:host={$db['host']};dbname={$db['name']};charset=utf8mb4;";
     $pdo = new PDO(
-        "mysql:host={$db['host']};dbname={$db['name']};charset=utf8mb4;",
+        $dsn,
         $db['user'],
         $db['password'],
         [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]

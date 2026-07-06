@@ -12,16 +12,25 @@ use Exceptions\PdoException;
 class Db implements DbInterface
 {
     private ?PDO $connection = null;
+    private string $driver;
 
     public function __construct(
         string $dbhost = "localhost",
         string $dbname = "saule_betting",
         string $username = "root",
-        string $password = ""
+        string $password = "",
+        string $driver = "mysql"
     ) {
+        $this->driver = $driver;
+
         try {
+            $dsn = match ($driver) {
+                'pgsql' => "pgsql:host=$dbhost;dbname=$dbname",
+                default => "mysql:host=$dbhost;dbname=$dbname;charset=utf8mb4;",
+            };
+
             $this->connection = new PDO(
-                "mysql:host=$dbhost;dbname=$dbname;charset=utf8mb4;",
+                $dsn,
                 $username,
                 $password,
                 [
@@ -52,6 +61,11 @@ class Db implements DbInterface
 
     public function insert(string $query = "", array $params = []): int
     {
+        if ($this->driver === 'pgsql') {
+            $query = rtrim($query, ';') . ' RETURNING id';
+            $stmt = $this->executeStatement($query, $params);
+            return (int) $stmt->fetchColumn();
+        }
         $stmt = $this->executeStatement($query, $params);
         return (int) $this->connection->lastInsertId();
     }

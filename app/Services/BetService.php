@@ -23,7 +23,7 @@ class BetService
     ) {
         $config = require __DIR__ . '/../config.php';
         $dbCfg = $config['db'];
-        $this->db = new Db(dbhost: $dbCfg['host'], dbname: $dbCfg['name'], username: $dbCfg['user'], password: $dbCfg['password']);
+        $this->db = new Db(dbhost: $dbCfg['host'], dbname: $dbCfg['name'], username: $dbCfg['user'], password: $dbCfg['password'], driver: $dbCfg['driver'] ?? 'mysql');
     }
 
     public function placeBet(int $userId, string $eventName, string $outcome, float $odds, float $amount, ?int $adminId = null): array
