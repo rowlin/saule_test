@@ -314,6 +314,7 @@ tr:hover {
     cursor: pointer;
     transition: all 0.2s;
     color: #666;
+    white-space: nowrap;
 }
 
 .tab-btn:hover {
@@ -448,6 +449,29 @@ tr:hover {
     color: #fff;
 }
 
+@media (max-width: 900px) {
+    .admin-tabs {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .admin-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .tab-btn {
+        flex: none;
+        padding: 12px 14px;
+        font-size: 13px;
+    }
+
+    .tab-btn:last-child {
+        padding-right: 20px;
+    }
+}
+
 @media (max-width: 768px) {
     .container {
         padding: 12px;
@@ -478,21 +502,9 @@ tr:hover {
         font-size: 17px;
     }
 
-    .admin-tabs {
-        flex-wrap: wrap;
-        border-radius: 8px;
-    }
-
-    .tab-btn {
-        flex: 1 1 auto;
-        min-width: 33.33%;
-        padding: 12px 8px;
-        font-size: 12px;
-        border-bottom: 1px solid #eee;
-    }
-
-    .tab-btn:nth-last-child(-n+2) {
-        border-bottom: none;
+    .table-wrap {
+        margin: 0 -14px;
+        padding: 0 14px;
     }
 
     th, td {
@@ -518,6 +530,28 @@ tr:hover {
 
     td .btn:last-child {
         margin-bottom: 0;
+    }
+
+    #usersContainer tr:not(.detail-row) th:nth-child(1),
+    #usersContainer tr:not(.detail-row) td:nth-child(1) {
+        display: none;
+    }
+
+    #eventsContainer th:nth-child(1),
+    #eventsContainer td:nth-child(1),
+    #eventsContainer th:nth-child(7),
+    #eventsContainer td:nth-child(7) {
+        display: none;
+    }
+
+    #allBetsContainer th:nth-child(1),
+    #allBetsContainer td:nth-child(1) {
+        display: none;
+    }
+
+    #pendingBetsContainer th:nth-child(1),
+    #pendingBetsContainer td:nth-child(1) {
+        display: none;
     }
 
     .add-contact-form {
@@ -588,6 +622,19 @@ tr:hover {
     }
 }
 
+@media (max-width: 600px) {
+    #logsContainer th:nth-child(1),
+    #logsContainer td:nth-child(1),
+    #logsContainer th:nth-child(6),
+    #logsContainer td:nth-child(6),
+    #logsContainer th:nth-child(7),
+    #logsContainer td:nth-child(7),
+    #logsContainer th:nth-child(8),
+    #logsContainer td:nth-child(8) {
+        display: none;
+    }
+}
+
 @media (max-width: 480px) {
     .container {
         padding: 8px;
@@ -622,9 +669,8 @@ tr:hover {
     }
 
     .tab-btn {
-        min-width: 50%;
-        padding: 10px 6px;
-        font-size: 11px;
+        padding: 10px 10px;
+        font-size: 12px;
     }
 
     th, td {
@@ -688,5 +734,17 @@ tr:hover {
         flex: none;
         width: 100%;
         min-width: 0;
+    }
+
+    #allBetsContainer th:nth-child(8),
+    #allBetsContainer td:nth-child(8),
+    #pendingBetsContainer th:nth-child(7),
+    #pendingBetsContainer td:nth-child(7) {
+        display: none;
+    }
+
+    #usersContainer tr:not(.detail-row) th:nth-child(4),
+    #usersContainer tr:not(.detail-row) td:nth-child(4) {
+        display: none;
     }
 }
