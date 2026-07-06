@@ -185,6 +185,11 @@ tr:hover {
     background: #f8f9fa;
 }
 
+.table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
 .balances {
     display: flex;
     gap: 10px;
@@ -443,3 +448,245 @@ tr:hover {
     color: #fff;
 }
 
+@media (max-width: 768px) {
+    .container {
+        padding: 12px;
+    }
+
+    .header {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
+        text-align: center;
+        margin-bottom: 16px;
+    }
+
+    .header h1 {
+        font-size: 20px;
+    }
+
+    .header-info {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .card {
+        padding: 14px;
+    }
+
+    .card h2 {
+        font-size: 17px;
+    }
+
+    .admin-tabs {
+        flex-wrap: wrap;
+        border-radius: 8px;
+    }
+
+    .tab-btn {
+        flex: 1 1 auto;
+        min-width: 33.33%;
+        padding: 12px 8px;
+        font-size: 12px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .tab-btn:nth-last-child(-n+2) {
+        border-bottom: none;
+    }
+
+    th, td {
+        padding: 8px 6px;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+    .actions {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .actions .btn,
+    td .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    td .btn {
+        margin-bottom: 4px;
+    }
+
+    td .btn:last-child {
+        margin-bottom: 0;
+    }
+
+    .add-contact-form {
+        flex-direction: column;
+    }
+
+    .add-contact-form select,
+    .add-contact-form input {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .contact-item {
+        flex-wrap: wrap;
+    }
+
+    .auth-form {
+        margin: 40px auto;
+        padding: 24px 20px;
+    }
+
+    .auth-form h2 {
+        margin-bottom: 20px;
+    }
+
+    .btn-sm {
+        padding: 8px 14px;
+        font-size: 13px;
+    }
+
+    .outcome-btn {
+        padding: 10px 14px;
+        font-size: 13px;
+    }
+
+    .balance-item {
+        flex: 1 1 calc(50% - 10px);
+        min-width: 0;
+    }
+
+    .events-table td:first-child {
+        white-space: normal;
+        min-width: 120px;
+    }
+
+    .detail-row td {
+        padding: 12px;
+    }
+
+    .detail-row td > div {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .detail-row td > div > .form-group {
+        width: 100%;
+    }
+
+    .detail-row td > div[style*="flex"] {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .detail-row td > div[style*="flex"] > .form-group {
+        flex: none;
+        width: 100%;
+        min-width: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 8px;
+    }
+
+    .header {
+        padding: 12px;
+        border-radius: 8px;
+    }
+
+    .header h1 {
+        font-size: 17px;
+    }
+
+    .header-info {
+        gap: 8px;
+    }
+
+    .header-balance {
+        font-size: 12px;
+        padding: 3px 10px;
+    }
+
+    .card {
+        padding: 12px;
+        border-radius: 8px;
+    }
+
+    .card h2 {
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+
+    .tab-btn {
+        min-width: 50%;
+        padding: 10px 6px;
+        font-size: 11px;
+    }
+
+    th, td {
+        padding: 6px 4px;
+        font-size: 11px;
+    }
+
+    .auth-form {
+        margin: 20px auto;
+        padding: 20px 16px;
+    }
+
+    .auth-form h2 {
+        font-size: 16px;
+    }
+
+    .form-group input,
+    .form-group select {
+        padding: 12px 10px;
+        font-size: 16px;
+    }
+
+    .btn {
+        padding: 12px 16px;
+        font-size: 15px;
+    }
+
+    .btn-sm {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    .balances {
+        flex-direction: column;
+    }
+
+    .balance-item {
+        flex: none;
+        width: 100%;
+    }
+
+    .events-table td:first-child {
+        min-width: 100px;
+        font-size: 12px;
+    }
+
+    .outcome-btn {
+        padding: 12px 10px;
+        font-size: 12px;
+        min-width: calc(33% - 4px);
+    }
+
+    #addEventForm > div[style*="flex"],
+    .detail-row td > div[style*="flex"] {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    #addEventForm > div[style*="flex"] .form-group,
+    .detail-row td > div[style*="flex"] .form-group {
+        flex: none;
+        width: 100%;
+        min-width: 0;
+    }
+}
