@@ -9,6 +9,7 @@
 
     <div class="admin-tabs">
         <button class="tab-btn active" data-tab="users">Users</button>
+        <button class="tab-btn" data-tab="events">Events</button>
         <button class="tab-btn" data-tab="bets">Bets</button>
         <button class="tab-btn" data-tab="settle">Settle Bets</button>
         <button class="tab-btn" data-tab="rates">Exchange Rates</button>
@@ -20,6 +21,39 @@
             <h2>Users</h2>
             <div id="usersContainer"></div>
 
+        </div>
+    </div>
+
+    <div class="tab-content" id="tab-events">
+        <div class="card">
+            <h2>Available Events</h2>
+            <div id="eventsContainer"></div>
+        </div>
+        <div class="card">
+            <h2>Add New Event</h2>
+            <form id="addEventForm">
+                <div class="form-group">
+                    <label for="eventName">Event Name</label>
+                    <input type="text" id="eventName" placeholder="e.g. Team A - Team B" required>
+                </div>
+                <div style="display:flex;gap:15px;flex-wrap:wrap">
+                    <div class="form-group" style="flex:1;min-width:120px">
+                        <label for="eventTeam1">1 (Home Win)</label>
+                        <input type="number" id="eventTeam1" step="0.01" min="1.01" max="40" placeholder="2.50" required>
+                    </div>
+                    <div class="form-group" style="flex:1;min-width:120px">
+                        <label for="eventDraw">X (Draw)</label>
+                        <input type="number" id="eventDraw" step="0.01" min="1.01" max="40" placeholder="3.05" required>
+                    </div>
+                    <div class="form-group" style="flex:1;min-width:120px">
+                        <label for="eventTeam2">2 (Away Win)</label>
+                        <input type="number" id="eventTeam2" step="0.01" min="1.01" max="40" placeholder="3.15" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Create Event</button>
+                <span class="alert alert-success" id="eventSuccess" style="display:none;margin-left:10px"></span>
+                <span class="alert alert-error" id="eventError" style="display:none;margin-left:10px"></span>
+            </form>
         </div>
     </div>
 
@@ -75,6 +109,7 @@
 $(document).ready(function() {
     loadAdminName();
     loadUsers();
+    loadEvents();
     loadAllBets();
     loadPendingBets();
     loadRates();
@@ -99,6 +134,9 @@ $(document).ready(function() {
         $('.tab-btn[data-tab="' + tab + '"]').addClass('active');
         $('.tab-content').removeClass('active');
         $('#tab-' + tab).addClass('active');
+        if (tab === 'events') {
+            loadEvents();
+        }
         if (tab === 'rates') {
             loadRates();
         }
@@ -111,11 +149,72 @@ $(document).ready(function() {
         e.preventDefault();
         saveRates();
     });
+
+    $('#addEventForm').on('submit', function(e) {
+        e.preventDefault();
+        $('#eventSuccess').hide();
+        $('#eventError').hide();
+
+        var name = $('#eventName').val().trim();
+        var team1 = parseFloat($('#eventTeam1').val());
+        var draw = parseFloat($('#eventDraw').val());
+        var team2 = parseFloat($('#eventTeam2').val());
+
+        if (!name) {
+            $('#eventError').text('Event name is required').show();
+            return;
+        }
+        if (!team1 || team1 < 1.01 || !draw || draw < 1.01 || !team2 || team2 < 1.01) {
+            $('#eventError').text('Odds must be at least 1.01').show();
+            return;
+        }
+
+        $.post('/api/addEvent', {
+            name: name,
+            team1Win: team1,
+            draw: draw,
+            team2Win: team2
+        }, function(response) {
+            if (response.success) {
+                $('#eventSuccess').text('Event created!').show();
+                $('#addEventForm')[0].reset();
+                loadEvents();
+            }
+        }).fail(function(xhr) {
+            var err = xhr.responseJSON ? xhr.responseJSON.error : 'Failed to create event';
+            $('#eventError').text(err).show();
+        });
+    });
 });
 
 function loadAdminName() {
     $.get('/api/profile', function(user) {
         $('#adminName').text('Admin: ' + user.name);
+    });
+}
+
+function loadEvents() {
+    $.get('/api/events', function(events) {
+        if (!events.length) {
+            $('#eventsContainer').html('<p>No events yet.</p>');
+            return;
+        }
+        var html = '<div style="overflow-x:auto"><table class="data-table"><thead><tr>' +
+            '<th>ID</th><th>Event</th><th>1</th><th>X</th><th>2</th><th>Status</th><th>Created</th>' +
+            '</tr></thead><tbody>';
+        events.forEach(function(e) {
+            html += '<tr>' +
+                '<td>' + e.id + '</td>' +
+                '<td>' + e.name + '</td>' +
+                '<td>' + parseFloat(e.team1_win).toFixed(2) + '</td>' +
+                '<td>' + parseFloat(e.draw).toFixed(2) + '</td>' +
+                '<td>' + parseFloat(e.team2_win).toFixed(2) + '</td>' +
+                '<td>' + e.status + '</td>' +
+                '<td>' + e.created_at + '</td>' +
+                '</tr>';
+        });
+        html += '</tbody></table></div>';
+        $('#eventsContainer').html(html);
     });
 }
 

@@ -52,6 +52,25 @@ CREATE TABLE IF NOT EXISTS balance_logs (
 CREATE INDEX IF NOT EXISTS idx_balance_logs_admin_id ON balance_logs(admin_id);
 CREATE INDEX IF NOT EXISTS idx_balance_logs_created_at ON balance_logs(created_at);
 
+CREATE TABLE IF NOT EXISTS events (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL UNIQUE,
+    team1_win DECIMAL(10, 2) NOT NULL,
+    draw DECIMAL(10, 2) NOT NULL,
+    team2_win DECIMAL(10, 2) NOT NULL,
+    status VARCHAR(10) NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'closed')),
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+INSERT INTO events (name, team1_win, draw, team2_win) VALUES
+('Barcelona - Real Madrid', 2.50, 3.05, 3.15),
+('Liverpool - Manchester United', 1.80, 3.40, 4.50),
+('Juventus - AC Milan', 2.10, 3.20, 3.80),
+('Bayern Munich - Borussia Dortmund', 1.45, 4.00, 6.50),
+('PSG - Marseille', 1.65, 3.75, 5.20),
+('Ajax - PSV Eindhoven', 2.20, 3.30, 3.40)
+ON CONFLICT (name) DO NOTHING;
+
 CREATE TABLE IF NOT EXISTS bets (
     id SERIAL PRIMARY KEY,
     user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,

@@ -172,7 +172,7 @@ test('EventService - findById', function () {
     $svc = new \Services\EventService();
     $event = $svc->findById(1);
     assertTrue($event !== null, 'Event 1 not found');
-    assertEquals(2.50, $event['team1_win']);
+    assertEquals(2.50, (float) $event['team1_win']);
 });
 
 test('User model - addContact and deleteContact', function () {

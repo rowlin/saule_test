@@ -34,6 +34,7 @@ class Router
         'adminAddContact' => ['Controllers\Api\Admin\ContactController', 'adminAdd'],
         'adminDeleteContact' => ['Controllers\Api\Admin\ContactController', 'adminDelete'],
         'adminUserContacts' => ['Controllers\Api\Admin\ContactController', 'adminUserContacts'],
+        'addEvent' => ['Controllers\Api\Admin\EventController', 'addEvent'],
     ];
 
     public function __construct(string $parameters, ?Container $container = null)
