@@ -15,11 +15,12 @@
 - Смена валюты с конвертацией баланса по текущему курсу
 - Ведение логов всех изменений баланса (ставки, расчёты, корректировки админа, смена валюты)
 - Несколько контактов на пользователя (до 2 телефонов и 2 email)
+- Управление событиями (админ: добавление событий и коэффициентов)
 
 ## Технологии
 
 - PHP 8.4 (OOP, SOLID, DTO, PSR-4 autoloading)
-- MySQL 5.7
+- MySQL 5.7 / PostgreSQL 14
 - Nginx
 - Docker / docker-compose
 - HTML, CSS, JavaScript, jQuery
@@ -45,12 +46,28 @@ docker-compose up --build -d
 
 ### Тестовые пользователи
 
-| Логин       | Пароль    | Роль  |
-|------------|-----------|-------|
-| john_doe   | password  | User  |
-| admin      | password  | Admin |
-| jane_smith | password  | User  |
-| bob_wilson | password  | User  |
+| Логин       | Пароль    | Роль  | Валюта | Баланс |
+|------------|-----------|-------|--------|--------|
+| john_doe   | password  | User  | EUR    | 1000   |
+| admin      | password  | Admin | EUR    | 1000   |
+| jane_smith | password  | User  | USD    | 1000   |
+| bob_wilson | password  | User  | RUB    | 1000   |
+
+### Запуск на PostgreSQL
+
+В `config.php` укажите драйвер PostgreSQL:
+
+```php
+'db' => [
+    'driver' => 'pgsql',        // 'mysql' или 'pgsql'
+    'host' => 'localhost',
+    'name' => 'saule_betting',
+    'user' => 'saule_user',
+    'password' => 'password',
+],
+```
+
+Инициализация БД: `psql -d saule_betting -f sql/init.pgsql.sql`
 
 ## Тестирование
 
@@ -58,7 +75,7 @@ docker-compose up --build -d
 make test
 ```
 
-Запускает 35+ тестов, покрывающих:
+Запускает 68+ тестов, покрывающих:
 
 ### База данных
 - Подключение к БД
