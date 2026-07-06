@@ -20,14 +20,19 @@
         </form>
         <div class="alert alert-error" id="loginAlert" style="display:none"></div>
         <div class="login-credentials">
-            <h3>Test Credentials</h3>
-            <table>
-                <tr><th>Login</th><th>Password</th><th>Role</th></tr>
-                <tr><td>admin</td><td>password</td><td>Admin</td></tr>
-                <tr><td>john_doe</td><td>password</td><td>User</td></tr>
-                <tr><td>jane_smith</td><td>password</td><td>User</td></tr>
-                <tr><td>bob_wilson</td><td>password</td><td>User</td></tr>
-            </table>
+            <button class="btn-credentials-toggle" onclick="$('#credTable').toggle(); $(this).text(function(i,t){return t==='Show test credentials'?'Hide test credentials':'Show test credentials'})">Show test credentials</button>
+            <div id="credTable" style="display:none">
+                <table>
+                    <tr><th>Login</th><th>Password</th><th>Role</th></tr>
+                    <tr><td>admin</td><td>password</td><td>Admin</td></tr>
+                    <tr><td>john_doe</td><td>password</td><td>User</td></tr>
+                    <tr><td>jane_smith</td><td>password</td><td>User</td></tr>
+                    <tr><td>bob_wilson</td><td>password</td><td>User</td></tr>
+                </table>
+            </div>
+        </div>
+        <div class="login-footer">
+            <a href="https://github.com/rowlin/saule_test" target="_blank">GitHub</a>
         </div>
     </div>
 </div>

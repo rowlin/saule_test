@@ -298,20 +298,29 @@ tr:hover {
     margin-top: 24px;
     padding-top: 20px;
     border-top: 1px solid #eee;
+    text-align: center;
 }
 
-.login-credentials h3 {
-    text-align: center;
-    color: #888;
+.btn-credentials-toggle {
+    background: none;
+    border: 1px solid #ddd;
+    color: #999;
     font-size: 12px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 12px;
+    padding: 6px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-credentials-toggle:hover {
+    color: #666;
+    border-color: #bbb;
+    background: #f5f5f5;
 }
 
 .login-credentials table {
     font-size: 12px;
+    margin-top: 12px;
 }
 
 .login-credentials th {
@@ -326,6 +335,22 @@ tr:hover {
     padding: 4px 8px;
     color: #777;
     font-family: monospace;
+}
+
+.login-footer {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.login-footer a {
+    color: #bbb;
+    font-size: 12px;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.login-footer a:hover {
+    color: #4a90d9;
 }
 
 .admin-tabs {
